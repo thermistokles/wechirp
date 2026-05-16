@@ -1,0 +1,10 @@
+# Core Django framework
+Django==4.2
+# REST Framework for building APIs
+djangorestframework==3.14.0
+
+#DB
+psycopg2-binary==2.9.11
+
+#Image
+Pillow==12.2.0
