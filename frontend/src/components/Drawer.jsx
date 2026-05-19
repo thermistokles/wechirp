@@ -25,6 +25,7 @@ import TopNavbar from "./TopNavbar";
 
 import Button from '@mui/material/Button';
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
+import PostForm from "./PostForm";
 
 const drawerWidth = 240;
 
@@ -171,7 +172,9 @@ export default function ResponsiveDrawer() {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
+
+        <PostForm />
 
         <Box sx={{ flexGrow: 1, p: 2 }}>
         {posts.map((post, index) => (

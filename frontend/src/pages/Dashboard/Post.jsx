@@ -18,10 +18,10 @@ const Post = ({ content, user, likes, created_at }) => (
         {content}
       </Typography>
       <Box mt={2} display="flex" alignItems="center">
+        <Typography component="span" mr={1}>{likes.length}</Typography>
         <IconButton aria-label="like">
-          {likes.length}<ThumbUpAltIcon />
+          <ThumbUpAltIcon />
         </IconButton>
-        <Typography component="span" mr={1}>{/* Like count */}</Typography>
         <IconButton aria-label="comment">
           <CommentIcon />
         </IconButton>
