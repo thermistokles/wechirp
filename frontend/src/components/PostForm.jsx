@@ -15,7 +15,6 @@ const PostForm = () =>  {
         },
         body: JSON.stringify({
             content: content,
-            user: 4
         }),
         });
 

@@ -18,3 +18,6 @@ class UserView(generics.ListCreateAPIView):
 class PostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    def perform_create(self, serializer):
+        user = User.objects.get(id=4)
+        serializer.save(user=user)
