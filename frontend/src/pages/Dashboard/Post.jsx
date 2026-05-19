@@ -2,15 +2,15 @@ import { Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/mat
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CommentIcon from '@mui/icons-material/Comment';
 
-const Post = ({ username, avatarUrl, date, content }) => (
+const Post = ({ content, user, likes, created_at }) => (
   <Card sx={{ mb: 2 }}>
     <CardContent>
       <Box display="flex" alignItems="center">
-        <Avatar src={avatarUrl} alt={username} />
+        {/* <Avatar src={avatarUrl} alt={user.name} /> */}
         <Typography variant="body1" component="div" ml={2}>
-          {username}
+          {user.name}
           <Typography variant="caption" color="text.secondary" display="block">
-            {date}
+            {created_at}
           </Typography>
         </Typography>
       </Box>
@@ -19,7 +19,7 @@ const Post = ({ username, avatarUrl, date, content }) => (
       </Typography>
       <Box mt={2} display="flex" alignItems="center">
         <IconButton aria-label="like">
-          <ThumbUpAltIcon />
+          {likes.length}<ThumbUpAltIcon />
         </IconButton>
         <Typography component="span" mr={1}>{/* Like count */}</Typography>
         <IconButton aria-label="comment">

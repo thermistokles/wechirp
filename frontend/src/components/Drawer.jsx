@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -29,13 +29,33 @@ import FlutterDashIcon from '@mui/icons-material/FlutterDash';
 const drawerWidth = 240;
 
 export default function ResponsiveDrawer() {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  const posts = [
-    { username: 'JohnDoe', avatarUrl: '../../assets/user-profiles/avatar1.jpg', date: '2023-10-01', content: 'Just had the best cup of coffee!' },
-    { username: 'JaneSmith', avatarUrl: '../../assets/user-profiles/avatar2.jpg', date: '2023-10-02', content: 'Check out this cool new tech gadget!' },
-    { username: 'AliceJohnson', avatarUrl: '../../assets/user-profiles/avatar3.jpg', date: '2023-10-03', content: 'Enjoying a beautiful sunset!' },
-  ];
+  // const posts = [
+  //   { username: 'JohnDoe', avatarUrl: '../../assets/user-profiles/avatar1.jpg', date: '2023-10-01', content: 'Just had the best cup of coffee!' },
+  //   { username: 'JaneSmith', avatarUrl: '../../assets/user-profiles/avatar2.jpg', date: '2023-10-02', content: 'Check out this cool new tech gadget!' },
+  //   { username: 'AliceJohnson', avatarUrl: '../../assets/user-profiles/avatar3.jpg', date: '2023-10-03', content: 'Enjoying a beautiful sunset!' },
+  // ];
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/post")
+      .then((response) => {
+        if (!response.ok) {
+          console.log("response: ", response)
+          throw new Error("Failed to fetch posts");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  console.log("posts: ", posts)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

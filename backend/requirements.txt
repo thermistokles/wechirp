@@ -2,6 +2,8 @@
 Django==4.2
 # REST Framework for building APIs
 djangorestframework==3.14.0
+# Allow CORS from frontend
+django-cors-headers
 
 #DB
 psycopg2-binary==2.9.11
