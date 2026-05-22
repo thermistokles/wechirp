@@ -1,15 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User, AbstractUser
 
-# Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=150, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted = models.BooleanField(default=False)
-
+class User(AbstractUser):
     bio = models.TextField(blank=True)
+    deleted = models.BooleanField(default=False)
 
 class Post(models.Model):
     # Relationship to the user who created the post

@@ -2,6 +2,8 @@
 Django==4.2
 # REST Framework for building APIs
 djangorestframework==3.14.0
+# REST Framework JWT
+djangorestframework-simplejwt==5.5.1
 # Allow CORS from frontend
 django-cors-headers
 
