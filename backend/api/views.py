@@ -31,7 +31,12 @@ class PostView(generics.ListCreateAPIView):
         user = User.objects.get(id=user_id)
         
         if action == "like":
-            # TODO: Handle if the post is already liked
+            if post.likes.filter(id=user.id).exists():
+                return Response(
+                    {"message": "Post already liked"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
             post.likes.add(user)
 
             return Response(
@@ -41,6 +46,11 @@ class PostView(generics.ListCreateAPIView):
 
         elif action == "unlike":
             # TODO: Handle if the post is already not liked
+            if not post.likes.filter(id=user.id).exists():
+                return Response(
+                    {"message": "Post never liked"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             post.likes.remove(user)
 
             return Response(
