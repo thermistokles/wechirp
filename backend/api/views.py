@@ -2,11 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import generics, status
-from .models import User
-from .models import Post
-from .serializers import UserSerializer
-from .serializers import PostSerializer
-
+from .models import User, Post
+from .serializers import RegisterSerializer, UserSerializer, PostSerializer
 
 # Create your views here.
 def main(request):
@@ -15,6 +12,10 @@ def main(request):
 class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
 
 class PostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
