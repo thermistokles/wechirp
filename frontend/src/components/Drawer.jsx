@@ -33,12 +33,6 @@ export default function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  // const posts = [
-  //   { username: 'JohnDoe', avatarUrl: '../../assets/user-profiles/avatar1.jpg', date: '2023-10-01', content: 'Just had the best cup of coffee!' },
-  //   { username: 'JaneSmith', avatarUrl: '../../assets/user-profiles/avatar2.jpg', date: '2023-10-02', content: 'Check out this cool new tech gadget!' },
-  //   { username: 'AliceJohnson', avatarUrl: '../../assets/user-profiles/avatar3.jpg', date: '2023-10-03', content: 'Enjoying a beautiful sunset!' },
-  // ];
-
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/post")
       .then((response) => {
