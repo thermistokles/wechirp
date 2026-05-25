@@ -12,18 +12,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
+import api from '../utils/api';
 
 function LoginPage() {
-    const navigate = useNavigate();
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      email: data.get('username'),
       password: data.get('password'),
     });
 
-    navigate('/dashboard');
+    try {
+      // The backend sets the HTTP-Only cookie automatically in this response
+      const response = await api.post('/token/', data);
+
+      const { access, refresh } = response.data;
+      console.log("access: ", access, "refresh: ", refresh)
+      
+      if (access && refresh) {
+        // 2. Save both tokens to LocalStorage
+        localStorage.setItem('access_token', access);
+        localStorage.setItem('refresh_token', refresh);
+
+        // 4. Safely navigate away
+        navigate('/dashboard');
+      }
+    } catch (error) { 
+      console.error("Login failed:", error.response?.data || error.message);
+    }
+
+    // Navigate to Dashboard if successful, else stay on this page
+    // navigate('/dashboard');
   };
 
   return (
@@ -48,10 +69,10 @@ function LoginPage() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="User Name"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField
@@ -73,7 +94,6 @@ function LoginPage() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={() => navigate('/dashboard')}
           >
             Sign In
           </Button>

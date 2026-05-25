@@ -108,11 +108,8 @@ export default function ResponsiveDrawer() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <FlutterDashIcon />WeChirp
           </Typography>
-          <Button color="inherit" component={Link} to="/register">
-            Register
-          </Button>
-          <Button color="inherit" component={Link} to="/login">
-            Login
+          <Button color="inherit" component={Link} to="/">
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
