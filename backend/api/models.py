@@ -4,6 +4,9 @@ from django.contrib.auth.models import User, AbstractUser
 class User(AbstractUser):
     bio = models.TextField(blank=True)
     deleted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted = models.BooleanField(default=False)
 
 class Post(models.Model):
     # Relationship to the user who created the post
