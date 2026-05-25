@@ -4,7 +4,6 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import TopNavbar from './components/TopNavbar'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import Dashboard from './pages/Dashboard/Dashboard'
@@ -15,7 +14,6 @@ function App() {
   return (
     <>
       <Router>
-        <TopNavbar />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<LoginPage />} />
