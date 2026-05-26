@@ -19,10 +19,6 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('username'),
-      password: data.get('password'),
-    });
 
     try {
       // The backend sets the HTTP-Only cookie automatically in this response

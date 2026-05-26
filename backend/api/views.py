@@ -63,5 +63,3 @@ class PostView(generics.ListCreateAPIView):
             {"error": "Invalid action"},
             status=status.HTTP_400_BAD_REQUEST
         )
-    
-        return None

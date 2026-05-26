@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Box,
   CssBaseline,
   Divider,
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -13,48 +13,46 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  Avatar
+  Avatar,
+  Button
 } from "@mui/material";
 
 import InboxIcon from "@mui/icons-material/Inbox";
 import MailIcon from "@mui/icons-material/Mail";
-
-import { Link } from 'react-router-dom';
-import Post from '../pages/Dashboard/Post'
-import TopNavbar from "./TopNavbar";
-
-import Button from '@mui/material/Button';
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
 import PostForm from "./PostForm";
+
+import Post from '../pages/Dashboard/Post'
+import api from "../utils/api";
 
 const drawerWidth = 240;
 
 export default function ResponsiveDrawer() {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/post")
-      .then((response) => {
-        if (!response.ok) {
-          console.log("response: ", response)
-          throw new Error("Failed to fetch posts");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPosts(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    fetchPosts()
   }, []);
 
-  console.log("posts: ", posts)
+  const fetchPosts = async () => {
+    try {
+      const response = await api.get('/post');
+
+      setPosts(response.data);
+    } catch (error) { 
+      console.error("Posts fetch failed:", error.response?.data || error.message);
+    }
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleLogout = () => {
+    navi
+  }
 
   const drawer = (
     <div>
@@ -108,7 +106,7 @@ export default function ResponsiveDrawer() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <FlutterDashIcon />WeChirp
           </Typography>
-          <Button color="inherit" component={Link} to="/">
+          <Button color="inherit" onClick={handleLogout()}>
             Logout
           </Button>
         </Toolbar>

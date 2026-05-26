@@ -1,22 +1,23 @@
-import { Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/material';
 import { useState } from "react";
 import Editor from './Editor';
+import api from '../utils/api';
 
 const PostForm = () =>  {
     const [content, setContent] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = {
+            content: content
+        }
+        try {
+        const response = await api.post('/post', data);
 
-        await fetch("http://127.0.0.1:8000/api/post", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            content: content,
-        }),
-        });
+        // setPosts(response.data);
+        } catch (error) { 
+            console.error("Posts fetch failed:", error.response?.data || error.message);
+        }
+        e.preventDefault();
 
         setContent("");
     };
