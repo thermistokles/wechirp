@@ -25,7 +25,6 @@ function LoginPage() {
       const response = await api.post('/token/', data);
 
       const { access, refresh } = response.data;
-      console.log("access: ", access, "refresh: ", refresh)
       
       if (access && refresh) {
         // 2. Save both tokens to LocalStorage

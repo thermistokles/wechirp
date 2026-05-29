@@ -20,8 +20,12 @@ import {
 import InboxIcon from "@mui/icons-material/Inbox";
 import MailIcon from "@mui/icons-material/Mail";
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
-import PostForm from "./PostForm";
+import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import SettingsIcon from '@mui/icons-material/Settings';
 
+import PostForm from "./PostForm";
 import Post from '../pages/Dashboard/Post'
 import api from "../utils/api";
 
@@ -50,9 +54,48 @@ export default function ResponsiveDrawer() {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleLogout = () => {
-    navi
+  const goToHome = () => {
+    navigate('/dashboard')
   }
+
+  const goToProfile = () => {
+    navigate('/dashboard')
+  }
+
+  const goToSettings = () => {
+    navigate('/dashboard')
+  }
+
+  const handleLogout = () => {
+    // 1. Clear both tokens from LocalStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    navigate('/')
+  }
+
+  // Settings for sidenav menu items LogoutIcon
+  const sidenavMenuItems = [
+    {
+      text: "Home",
+      icon: <HomeIcon />,
+      action: goToHome
+    },
+    {
+      text: "Profile",
+      icon: <AccountBoxIcon />,
+      action: goToProfile,
+    },
+    {
+      text: "Settings",
+      icon: <SettingsIcon />,
+      action: goToSettings,
+    },
+    {
+      text: "Logout",
+      icon: <LogoutIcon />,
+      action: handleLogout,
+    },
+  ]
 
   const drawer = (
     <div>
@@ -75,11 +118,11 @@ export default function ResponsiveDrawer() {
       <Divider />
 
       <List>
-        {["Home", "Profile", "Settings", "Logout"].map((text, index) => (
+        {sidenavMenuItems.map(({text, icon, action}) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={action}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {icon}
               </ListItemIcon>
 
               <ListItemText primary={text} />
@@ -106,9 +149,6 @@ export default function ResponsiveDrawer() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <FlutterDashIcon />WeChirp
           </Typography>
-          <Button color="inherit" onClick={handleLogout()}>
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
 
