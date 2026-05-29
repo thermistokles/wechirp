@@ -24,12 +24,13 @@ function LoginPage() {
       // The backend sets the HTTP-Only cookie automatically in this response
       const response = await api.post('/token/', data);
 
-      const { access, refresh } = response.data;
+      const { access, refresh, user } = response.data;
       
       if (access && refresh) {
         // 2. Save both tokens to LocalStorage
         localStorage.setItem('access_token', access);
         localStorage.setItem('refresh_token', refresh);
+        localStorage.setItem('user', JSON.stringify(user));
 
         // 4. Safely navigate away
         navigate('/dashboard');

@@ -34,6 +34,8 @@ export default function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [posts, setPosts] = useState([]);
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
   // Fetch posts on page load
   useEffect(() => {
     fetchPosts()
@@ -202,7 +204,7 @@ export default function ResponsiveDrawer() {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        {/* <Toolbar /> */}
+        Welcome {user.username}
 
         <PostForm />
 
