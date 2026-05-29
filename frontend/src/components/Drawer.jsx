@@ -17,8 +17,6 @@ import {
   Button
 } from "@mui/material";
 
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
@@ -36,10 +34,12 @@ export default function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [posts, setPosts] = useState([]);
 
+  // Fetch posts on page load
   useEffect(() => {
     fetchPosts()
   }, []);
 
+  // Fetch posts function
   const fetchPosts = async () => {
     try {
       const response = await api.get('/post');
@@ -54,18 +54,19 @@ export default function ResponsiveDrawer() {
     setMobileOpen(!mobileOpen);
   };
 
+  // Go to home
   const goToHome = () => {
     navigate('/dashboard')
   }
-
+  // Go to profile
   const goToProfile = () => {
     navigate('/dashboard')
   }
-
+  // Go to settings
   const goToSettings = () => {
     navigate('/dashboard')
   }
-
+  // Logout
   const handleLogout = () => {
     // 1. Clear both tokens from LocalStorage
     localStorage.removeItem('access_token');
@@ -73,7 +74,7 @@ export default function ResponsiveDrawer() {
     navigate('/')
   }
 
-  // Settings for sidenav menu items LogoutIcon
+  // Object for sidenav menu items
   const sidenavMenuItems = [
     {
       text: "Home",

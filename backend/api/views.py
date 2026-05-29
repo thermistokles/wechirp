@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import generics, status
 from .models import User, Post
-from .serializers import RegisterSerializer, UserSerializer, PostSerializer
+from .serializers import RegisterSerializer, UserSerializer, PostSerializer, MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 def main(request):
@@ -13,6 +14,9 @@ class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+    
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
