@@ -15,7 +15,6 @@ const Post = ({ id, content, user, likes, created_at }) => {
       'post_id' : id,
       'user_id' : loggedInUser.id
     }
-    console.log("data: ", data)
     try {
       var response = null
       if (isLiked) {
