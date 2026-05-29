@@ -14,7 +14,6 @@ import {
   Toolbar,
   Typography,
   Avatar,
-  Button
 } from "@mui/material";
 
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
@@ -34,12 +33,14 @@ export default function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const loggedInUser = JSON.parse(localStorage.getItem('user'));
 
   // Fetch posts on page load
   useEffect(() => {
     fetchPosts()
   }, []);
+
+  console.log("posts: ", posts)
 
   // Fetch posts function
   const fetchPosts = async () => {
@@ -204,7 +205,7 @@ export default function ResponsiveDrawer() {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        Welcome {user.username}
+        Welcome {loggedInUser.username}
 
         <PostForm />
 
