@@ -74,3 +74,12 @@ class CommentView(generics.ListCreateAPIView):
         post_id = self.request.data["post_id"]
         post = Post.objects.get(id=post_id)
         serializer.save(user=self.request.user, post=post)
+
+    def get_queryset(self):
+        queryset = Comment.objects.all()
+        post_id = self.request.query_params.get('post_id')
+        if post_id is not None:
+            # Filter the comments to only return ones matching this post
+            queryset = queryset.filter(post_id=post_id)
+            
+        return queryset
