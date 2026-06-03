@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import generics, status
-from .models import User, Post
-from .serializers import RegisterSerializer, UserSerializer, PostSerializer, MyTokenObtainPairSerializer
+from .models import User, Post, Comment
+from .serializers import RegisterSerializer, UserSerializer, PostSerializer, MyTokenObtainPairSerializer, CommentSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
@@ -25,8 +25,7 @@ class PostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     def perform_create(self, serializer):
-        user = User.objects.get(id=4)
-        serializer.save(user=user)
+        serializer.save(user=self.request.user)
 
     def patch(self, request, *args, **kwargs):
         action = request.query_params.get('action')
@@ -67,3 +66,11 @@ class PostView(generics.ListCreateAPIView):
             {"error": "Invalid action"},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+class CommentView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    def perform_create(self, serializer):
+        post_id = self.request.data["post_id"]
+        post = Post.objects.get(id=post_id)
+        serializer.save(user=self.request.user, post=post)

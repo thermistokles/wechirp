@@ -46,3 +46,27 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.content[:30]}"
+    
+class Comment(models.Model):
+    # Link the comment to a specific post
+    post = models.ForeignKey(
+        Post, 
+        on_delete=models.CASCADE, 
+        related_name="comments"
+    )
+    
+    # Link the comment to the user who wrote it
+    user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="comments"
+    )
+    
+    content = models.TextField()
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.post.id}"
