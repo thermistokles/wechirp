@@ -11,9 +11,7 @@ const PostForm = () =>  {
             content: content
         }
         try {
-        const response = await api.post('/post', data);
-
-        // setPosts(response.data);
+        await api.post('/post', data);
         } catch (error) { 
             console.error("Posts fetch failed:", error.response?.data || error.message);
         }
@@ -21,7 +19,7 @@ const PostForm = () =>  {
 
         setContent("");
     };
-    
+
     return (
         <div style={{ maxWidth: 600, margin: "auto" }}>
             <h2>Create Post</h2>

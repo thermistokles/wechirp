@@ -23,7 +23,19 @@ const Comments = ({postId}) => {
     }
 
     const handleSubmit = async (e) => {
-        console.log("new comment submitted")
+        e.preventDefault();
+        const data = {
+            content: content,
+            post_id: postId
+        }
+        try {
+            await api.post('/comment', data);
+        } catch (error) { 
+            console.error("Posts fetch failed:", error.response?.data || error.message);
+        }
+        e.preventDefault();
+
+        setContent("");
     };
 
     return (
