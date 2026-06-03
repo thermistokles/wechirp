@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Count
 from rest_framework.response import Response
 from rest_framework import generics, status
 from .models import User, Post, Comment
@@ -24,6 +25,10 @@ class RegisterView(generics.CreateAPIView):
 class PostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return Post.objects.annotate(comment_count=Count('comments'))
+    
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 

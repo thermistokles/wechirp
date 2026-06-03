@@ -36,9 +36,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    comment_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Post
-        fields = ('id', 'user', 'content', 'likes', 'created_at', 'updated_at')
+        fields = ('id', 'user', 'content', 'likes', 'comment_count', 'created_at', 'updated_at')
 
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

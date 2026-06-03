@@ -49,9 +49,9 @@ const Post = ({ id, content, user, likes, created_at }) => {
             <ThumbUpAltIcon />
           </IconButton>
           <IconButton aria-label="comment">
+            <Typography component="span">{/* Comment count */}</Typography>
             <CommentIcon />
           </IconButton>
-          <Typography component="span">{/* Comment count */}</Typography>
         </Box>
       </CardContent>
     </Card>
