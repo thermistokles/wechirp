@@ -21,17 +21,18 @@ const PostForm = () =>  {
 
         setContent("");
     };
+    
     return (
         <div style={{ maxWidth: 600, margin: "auto" }}>
-        <h2>Create Post</h2>
+            <h2>Create Post</h2>
 
-        <form onSubmit={handleSubmit}>
-            <Editor value={content} onChange={setContent} />
+            <form onSubmit={handleSubmit}>
+                <Editor value={content} onChange={setContent} />
 
-            <button style={{ marginTop: 10 }} type="submit">
-            Post
-            </button>
-        </form>
+                <button style={{ marginTop: 10 }} type="submit">
+                Post
+                </button>
+            </form>
         </div>
     )
 }

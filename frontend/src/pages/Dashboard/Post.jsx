@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CommentIcon from '@mui/icons-material/Comment';
 
+import Comments from "./Comments";
+
 import api from '../../utils/api';
 
-const Post = ({ id, content, user, likes, created_at }) => {
+const Post = ({ id, content, user, likes, comment_count, created_at }) => {
   const loggedInUser = JSON.parse(localStorage.getItem('user'));
+  const [showComments, setShowComments] = useState(false);
 
   const isLiked = likes.includes(loggedInUser.id);
 
@@ -28,13 +32,18 @@ const Post = ({ id, content, user, likes, created_at }) => {
     }
   }
 
+  // If the user Clicks on comments button, the comments are shown/hidden
+  const handleShowContent = async () => {
+    setShowComments(!showComments)
+  }
+
   return (
     <Card sx={{ mb: 2 }}>
       <CardContent>
         <Box display="flex" alignItems="center">
           {/* <Avatar src={avatarUrl} alt={user.name} /> */}
           <Typography variant="body1" component="div" ml={2}>
-            {user.name}
+            {user.username}
             <Typography variant="caption" color="text.secondary" display="block">
               {created_at}
             </Typography>
@@ -48,11 +57,12 @@ const Post = ({ id, content, user, likes, created_at }) => {
           <IconButton aria-label="like" color={isLiked ? 'primary' : 'default'} onClick={handleLike}>
             <ThumbUpAltIcon />
           </IconButton>
-          <IconButton aria-label="comment">
-            <Typography component="span">{/* Comment count */}</Typography>
+          <Typography component="span">{comment_count}</Typography>
+          <IconButton aria-label="comment" onClick={handleShowContent}>
             <CommentIcon />
           </IconButton>
         </Box>
+        {showComments && <Comments postId={id} />}
       </CardContent>
     </Card>
   )

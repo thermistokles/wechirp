@@ -40,8 +40,6 @@ export default function ResponsiveDrawer() {
     fetchPosts()
   }, []);
 
-  console.log("posts: ", posts)
-
   // Fetch posts function
   const fetchPosts = async () => {
     try {
