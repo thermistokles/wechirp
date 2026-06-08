@@ -8,6 +8,13 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
+    following = models.ManyToManyField(
+        'self', 
+        symmetrical=False, 
+        related_name='followers', 
+        blank=True
+    )
+
 class Post(models.Model):
     # Relationship to the user who created the post
     user = models.ForeignKey(
