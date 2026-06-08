@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import Editor from "../../components/Editor";
-import api from "../../utils/api";
+import Editor from "./Editor";
+import api from "../utils/api";
 
 const Comments = ({postId}) => {
     const [comments, setComments] = useState([]);

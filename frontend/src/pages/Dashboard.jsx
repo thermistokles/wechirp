@@ -1,31 +1,15 @@
 import { useEffect, useState } from "react";
-import ResponsiveDrawer from '../../components/Drawer';
+import ResponsiveDrawer from '../components/Drawer';
 
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-  Avatar,
-} from "@mui/material";
+import { Box } from "@mui/material";
 
-import PostForm from '../../components/PostForm';
-import Post from '../../components/Post';
-import api from "../../utils/api";
+import PostForm from '../components/PostForm';
+import Post from '../components/Post';
+import api from "../utils/api";
 
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
-
-  
 
   // Fetch posts on page load
   useEffect(() => {

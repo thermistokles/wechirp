@@ -3,7 +3,7 @@ import { Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/mat
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CommentIcon from '@mui/icons-material/Comment';
 
-import Comments from "../pages/Dashboard/Comments";
+import Comments from "../components/Comments";
 
 import api from '../utils/api';
 
