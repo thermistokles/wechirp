@@ -15,6 +15,38 @@ class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def patch(self, request, *args, **kwargs):
+        action = request.query_params.get('action')
+        followee_id = request.data.get("followee_id")
+        user = self.request.user
+
+        if action == 'follow':
+            #Already followed
+            if user.following.filter(id=followee_id).exists():
+                return Response(
+                    {"message": "User already followed"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            user.following.add(followee_id)
+            return Response(
+                {"message": "User followed"},
+                status=status.HTTP_200_OK
+            )
+        
+        #Not following
+        elif action == 'unfollow':
+            if not user.following.filter(id=followee_id).exists():
+                return Response(
+                    {"message": "User not followed"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            user.following.remove(followee_id)
+            return Response(
+                {"message": "User unfollowed"},
+                status=status.HTTP_200_OK
+            )
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
     
