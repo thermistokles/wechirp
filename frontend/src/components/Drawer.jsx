@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
@@ -22,34 +22,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import PostForm from "./PostForm";
-import Post from '../pages/Dashboard/Post'
-import api from "../utils/api";
-
 const drawerWidth = 240;
 
-export default function ResponsiveDrawer() {
+export default function ResponsiveDrawer({ children }) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
-
-  const loggedInUser = JSON.parse(localStorage.getItem('user'));
-
-  // Fetch posts on page load
-  useEffect(() => {
-    fetchPosts()
-  }, []);
-
-  // Fetch posts function
-  const fetchPosts = async () => {
-    try {
-      const response = await api.get('/post');
-
-      setPosts(response.data);
-    } catch (error) { 
-      console.error("Posts fetch failed:", error.response?.data || error.message);
-    }
-  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -61,7 +38,7 @@ export default function ResponsiveDrawer() {
   }
   // Go to profile
   const goToProfile = () => {
-    navigate('/dashboard')
+    navigate('/profile')
   }
   // Go to settings
   const goToSettings = () => {
@@ -178,7 +155,6 @@ export default function ResponsiveDrawer() {
           {drawer}
         </Drawer>
 
-        {/* Desktop Drawer */}
         <Drawer
           variant="permanent"
           sx={{
@@ -193,26 +169,7 @@ export default function ResponsiveDrawer() {
           {drawer}
         </Drawer>
       </Box>
-
-      {/* Main Content */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        Welcome {loggedInUser.username}
-
-        <PostForm />
-
-        <Box sx={{ flexGrow: 1, p: 2 }}>
-        {posts.map((post, index) => (
-            <Post key={index} {...post} />
-        ))}
-        </Box>
-      </Box>
+      {children}
     </Box>
   );
 }

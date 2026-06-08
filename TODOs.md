@@ -4,3 +4,4 @@
 4. Filtering posts by followers and followees
 5. Search bar for Posts and users.
 6. Implement Profile page and settings page
+7. Overhaul drawer to topnav and sidenav component

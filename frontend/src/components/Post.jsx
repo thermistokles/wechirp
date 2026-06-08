@@ -3,9 +3,9 @@ import { Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/mat
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CommentIcon from '@mui/icons-material/Comment';
 
-import Comments from "./Comments";
+import Comments from "../pages/Dashboard/Comments";
 
-import api from '../../utils/api';
+import api from '../utils/api';
 
 const Post = ({ id, content, user, likes, comment_count, created_at }) => {
   const loggedInUser = JSON.parse(localStorage.getItem('user'));
